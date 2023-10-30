@@ -10,6 +10,8 @@ socket.on('connect', ()=>{
 })
 
 socket.on('nsList', (data)=>{
+  const lastNs = localStorage.getItem('lastNs')
+
   console.log(data)
   const namespacesDiv = document.querySelector('.namespaces')
   data.forEach(ns=>{
@@ -20,18 +22,11 @@ socket.on('nsList', (data)=>{
   Array.from(document.getElementsByClassName('namespace')).forEach((elem)=>{
     console.log(elem)
     elem.addEventListener('click', e => {
-      const nsEndpoint = elem.getAttribute('ns')
-      console.log(nsEndpoint)
-
-      const clickdNs = data.find(row=>row.endpoint === nsEndpoint)
-      const rooms = clickdNs.rooms
-
-      let roomList = document.querySelector('.room-list')
-      roomList.innerHTML = ''
-      rooms.forEach(room=>{
-        roomList.innerHTML += `<li><span class="glyphicon glyphicon-lock"></span>${room.roomTitle}</li>`
-      })
+      joinNs(elem, data)
     })
-
   })
+
+  // web init
+  // TODO: If lastNs is set, grab that element instead of 0
+  joinNs(document.getElementsByClassName('namespace')[0], data)
 })
