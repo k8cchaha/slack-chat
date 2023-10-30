@@ -17,6 +17,8 @@ socket.on('nsList', (data)=>{
   data.forEach(ns=>{
     // updated the HTML
     namespacesDiv.innerHTML += `<div class="namespace" ns="${ns.endpoint}"><img src="${ns.image}"></div>`
+    // 為每個 namespace 建立連線
+    io(`http://localhost:9001${ns.endpoint}`)
   })
 
   Array.from(document.getElementsByClassName('namespace')).forEach((elem)=>{
