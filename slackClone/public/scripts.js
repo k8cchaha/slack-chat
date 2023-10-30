@@ -13,7 +13,9 @@ socket.on('connect', ()=>{
 
 socket.on('nsList', (data)=>{
   console.log(data)
+  const namespacesDiv = document.querySelector('.namespaces')
   data.forEach(ns=>{
     // updated the HTML
+    namespacesDiv.innerHTML += `<div class="namespace" ns="${ns.name}"><img src="${ns.image}"></div>`
   })
 })
